@@ -28,7 +28,7 @@ mkdir -p <프로젝트>/.claude/skills
 cp -r <받을 곳>/skills/floorplan-trace <프로젝트>/.claude/skills/
 ```
 
-(Windows PowerShell: `Copy-Item -Recurse <받을 곳>\skillsloorplan-trace <프로젝트>\.claude\skills\`.) 이미 `<SKILL>` 이 있다면 건너뜁니다. 확인: `<SKILL>/SKILL.md` 가 있다.
+(Windows PowerShell: `Copy-Item -Recurse <받을 곳>\skills\floorplan-trace <프로젝트>\.claude\skills\`.) 이미 `<SKILL>` 이 있다면 건너뜁니다. 확인: `<SKILL>/SKILL.md` 가 있다.
 
 ## 2. 시스템 Python 의존성
 
