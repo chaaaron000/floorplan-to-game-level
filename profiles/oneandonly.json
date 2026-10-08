@@ -1,0 +1,25 @@
+{
+  "family": "oneandonly",
+  "title": "One&Only Private Homes, One Za'abeel (Dubai)",
+  "sources": ["OneAndOnly_Private_Homes_Floor_Plans.pdf (9p)", "OneAndOnly_Private_Homes_Floor_Plates.pdf (5p)",
+              "Jiwak 허브 floor_plan_img_4397.jpeg(같은 AP1 시트의 래스터판)"],
+  "format": "vector_pdf",
+  "background_rgb": [245, 240, 237],
+  "background_tol": 12,
+  "wall": {"rgb": [[116, 96, 82]], "tol": 24},
+  "render_dpi": 200,
+  "units": {"dims": "none", "area": "sq m + sq ft (면적표)"},
+  "scale": {
+    "method": "area",
+    "evidence": ["면적표 SUITE AREA(㎡·sq ft) ↔ 외벽 바깥면 다각형", "fixture: 현관문 폭 ~1.0m, 킹 침대(헤드보드 포함) ~2.2m"],
+    "notes": "축척 막대·방 치수 없음. pdfbars가 내는 가로 사각형 묶음은 커튼월 멀리언(67.5pt 간격)이지 막대가 아니다. 강한 근거가 면적표 하나뿐이라 scale은 경고와 함께 보고한다."
+  },
+  "page_layout": "세로 페이지(768x1366pt) 위쪽에 세대 평면 1개, 아래에 키 플랜. 평면 위치는 페이지마다 다르다.",
+  "quirks": [
+    "벽 갈색 채움의 약 25%가 렌더링에서 가려진다(survey hidden). 벡터 도형 대신 렌더링으로 해석한다.",
+    "유리 칸막이(드레스룸|침실)는 벽 색 가는 겹선이다: 벽이 아니라 virtual_splits.",
+    "침실|라운지 사이 독립 TV 벽체는 굵은 테두리 사각형: casework polygon.",
+    "커튼월은 벽 색 6~7px 선과 멀리언 블록: 북쪽 외벽 + curtain 개구부.",
+    "바탕이 크림색이라 arc는 --profile로 바탕 마스크를 쓴다."
+  ]
+}

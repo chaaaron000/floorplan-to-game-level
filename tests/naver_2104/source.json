@@ -1,0 +1,10 @@
+{
+  "family": "naver_land",
+  "case": "단지 2104(풍림·한국 시공) 80.58C (공급 80.58㎡ / 전용 59.88㎡, 437세대), 치수선 있는 평면도",
+  "url": "https://landthumb-phinf.pstatic.net/20120724_235/hscp_img_134309321863646RQr_JPEG/photoinfra_1343093218382.jpg",
+  "url_note": "사용자가 보낸 Npay 부동산 화면(80.58C㎡, 풍림·한국, 평면도 3/3)과 같은 그림. 네이버 검색 '풍림 한국 아파트'의 부동산 카드(complexes/2104)에서 s.search.naver.com/p/landplus/1/search.naver?api_type=pc_complex_detail&complex_code=2104&complex_size_code=4&complex_size_code_members=3,4,2&gdid=0009A103_000000000838 로 주소를 얻었다.",
+  "image": "refs/floorplans/naver_2104/80C.jpg",
+  "scale": "scale.json",
+  "expect": {"scale_passed": false,
+             "scale_note": "치수선 19개 + 전용면적. 세로는 0.0204 m/px로 일관되고 면적과 2.8%. 가로는 전체 9100끼리만 맞고 세로보다 12% 크며(anisotropy_warning), 칸 치수가 -15~+24%로 어긋난다: 가로를 치수대로 그리지 않은 그림. 코어 쪽 세로 치수 2개(2300·2400)도 3~4%."}
+}

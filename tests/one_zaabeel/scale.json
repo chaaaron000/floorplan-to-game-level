@@ -1,0 +1,97 @@
+{
+ "image": "refs/floorplans/one_zaabeel/l04_u03.png",
+ "profile": "one_zaabeel",
+ "items": [
+  {
+   "kind": "area",
+   "label": "SUITE AREA 107.68 SQ.M ↔ outline(경계벽 바깥면, 현관 전실 포함) — Ithra 시트 1 SIMPLEX BEDROOM-TYPE B / LEVEL 04 / UNIT 03 (Jiwak floor_plan_img_4398.jpeg에서 읽음)",
+   "polygon": [
+    [
+     28.0,
+     114.0
+    ],
+    [
+     1046.0,
+     114.0
+    ],
+    [
+     1046.0,
+     901.0
+    ],
+    [
+     650.0,
+     901.0
+    ],
+    [
+     650.0,
+     985.5
+    ],
+    [
+     429.0,
+     985.5
+    ],
+    [
+     429.0,
+     901.0
+    ],
+    [
+     28.0,
+     901.0
+    ]
+   ],
+   "area": "107.68 m2"
+  },
+  {
+   "kind": "dim",
+   "label": "LIVING/DINING 6.65: 서쪽 경계벽 안쪽 ~ 가운데 벽체 서면 (y 400)",
+   "p0": [
+    51,
+    400
+   ],
+   "p1": [
+    598,
+    400
+   ],
+   "length": "6.65 m"
+  },
+  {
+   "kind": "dim",
+   "label": "LIVING/DINING 5.58: 유리 안쪽 ~ 세탁·파우더 묶음 북면 (x 380)",
+   "p0": [
+    380,
+    132
+   ],
+   "p1": [
+    380,
+    604
+   ],
+   "length": "5.58 m"
+  },
+  {
+   "kind": "dim",
+   "label": "MASTER BEDROOM 4.24: 가운데 벽체 동면 ~ 동쪽 경계벽 안쪽 (y 300)",
+   "p0": [
+    679,
+    300
+   ],
+   "p1": [
+    1026,
+    300
+   ],
+   "length": "4.24 m"
+  },
+  {
+   "kind": "dim",
+   "label": "MASTER BEDROOM 4.19: 유리 안쪽 ~ 욕실 북벽 북면 (x 900)",
+   "p0": [
+    900,
+    132
+   ],
+   "p1": [
+    900,
+    489
+   ],
+   "length": "4.19 m"
+  }
+ ]
+}

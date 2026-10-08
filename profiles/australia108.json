@@ -1,0 +1,40 @@
+{
+  "family": "australia108",
+  "title": "Australia 108 (Melbourne)",
+  "sources": [
+    "Australia_108_Floorplates.pdf (30p, 737x1191pt / 바닥판 쪽 1474x1191pt, 벡터)"
+  ],
+  "format": "vector_pdf",
+  "background_rgb": [
+    255,
+    255,
+    255
+  ],
+  "wall": {
+    "rgb": [
+      [
+        1,
+        1,
+        1
+      ]
+    ],
+    "tol": 30
+  },
+  "render_dpi": 200,
+  "units": {
+    "dims": "none",
+    "area": "m² (INTERNAL / BALCONY / TOTAL)"
+  },
+  "scale": {
+    "method": "area",
+    "evidence": [
+      "면적표 INTERNAL ↔ 세대 다각형(Method of Measurement for Residential Property 기준: 쪽 주석 확인)"
+    ],
+    "notes": "pdfbars가 내는 막대 후보는 승강기 기호(LIFT)다: 라벨을 보고 거른다. 방 치수 없음."
+  },
+  "page_layout": "바닥판 14~21쪽(세대를 파랑으로 강조) + 세대 평면 23~29쪽(키 플랜·방위 표시).",
+  "quirks": [
+    "바닥판의 파란 채움(96,113,148)은 세대 강조다: 벽 규칙에 넣지 않는다(이 프로필은 검정만).",
+    "검정 채움의 약 10%가 렌더링에서 가려진다."
+  ]
+}

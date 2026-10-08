@@ -1,0 +1,10 @@
+{
+  "family": "aston_martin",
+  "drive_path": "14.01 건물 도면 레퍼런스/03_Aston_Martin_Residences/downloads/Brochure/Aston_Martin_Residences_Brochure.pdf",
+  "local_source": "refs/floorplans/_sources/Aston_Martin_Residences_Brochure.pdf",
+  "render": {"page": 36, "dpi": 400, "clip": [400, 135, 625, 550], "drop_text": "www\\."},
+  "image": "refs/floorplans/aston_martin/res03.png",
+  "scale": "scale.json",
+  "expect": {"scale_passed": false,
+             "scale_note": "강한 근거가 방 치수(dims) 한 종류뿐(브로슈어에는 막대·면적 없음). 16개 중 13개가 ±2.6% 안, 짧은 치수 3개(로비 폭 +3.1%, 현관 깊이 -6.5%, Hers 폭 -3.8%)가 벗어남. 전체 도면집의 축척 막대(0.0424 m/pt)는 이 페이지와 축척이 달라 쓸 수 없다."}
+}

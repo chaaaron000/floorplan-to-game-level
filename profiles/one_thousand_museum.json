@@ -1,0 +1,25 @@
+{
+  "family": "one_thousand_museum",
+  "title": "One Thousand Museum by Zaha Hadid Architects (Miami)",
+  "sources": ["one-thousand-museum-floor-plans.pdf (8p)", "01/02-line-levels-*.pdf, townhouse-*.pdf, penthouse-*.pdf (각 1p)", "같은 내용의 JPG"],
+  "format": "vector_pdf",
+  "background_rgb": [255, 255, 255],
+  "wall": {"dark_sum": 300},
+  "glass_ink_sum": 600,
+  "render_dpi": 120,
+  "units": {"dims": "ft-in(타이포 따옴표 ’, ’’; 단어가 쪼개져 있음)", "area": "sq ft + m²"},
+  "scale": {
+    "method": "bar + dims + area",
+    "evidence": ["체커보드 막대 0-5-10-15-20 ft, 칸 57.6pt (pdfbars가 두 줄 칸을 하나로 합친다) → 0.026458 m/pt",
+                 "방 이름 아래 W' H\" X D' H\" (pdfdims)", "INTERIORS sq ft / m² (실내 면적, 테라스 제외)"],
+    "notes": "왼쪽 검은 패널에 면적표, 평면 왼쪽 아래에 막대."
+  },
+  "page_layout": "가로 2700x1800pt. 왼쪽 1/3은 검은 정보 패널(같은 검정이라 survey 띠 판정에 섞임), 오른쪽에 반층 세대 2개가 위아래 거울 대칭(가운데 점선이 세대 경계).",
+  "quirks": [
+    "벽 검정(35,31,32)이 정보 패널·글자에도 쓰인다. 렌더링 clip으로 평면만 잘라 쓴다.",
+    "외피는 가는 유리 겹선 + 외골격 기둥(검은 다각형). 유리는 벽 마스크에 안 잡히므로 잉크 마스크(RGB 합 < 600)로 직선 맞춤하고 창 개구부로만 덮는다.",
+    "공용 코어(회색 213,215,216 채움: 계단·서비스 홀)가 세대 사이에 있다: outline에서 뺀다.",
+    "워터마크(www.miamicondoinvestments.com) 텍스트 → render --drop-text 'www\\.'.",
+    "한 페이지에 대칭 세대 2개: survey mirror IoU가 높게 나온다. 한 세대만 추적한다."
+  ]
+}

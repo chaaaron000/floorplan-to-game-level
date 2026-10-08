@@ -1,0 +1,44 @@
+{
+  "family": "aston_martin",
+  "title": "Aston Martin Residences (Miami)",
+  "sources": [
+    "Aston_Martin_Residences_Floor_Plans_Full_Set.pdf (394p, 1224x792pt 벡터, L56 이상 쪽에 축척 막대)",
+    "Aston_Martin_Residences_Brochure.pdf (45p, 평면 31~42쪽)",
+    "Aston_Martin_Residences_Fact_Sheet.pdf"
+  ],
+  "format": "vector_pdf",
+  "background_rgb": [
+    255,
+    255,
+    255
+  ],
+  "wall": {
+    "rgb": [
+      [
+        189,
+        190,
+        192
+      ]
+    ],
+    "tol": 24
+  },
+  "render_dpi": 400,
+  "units": {
+    "dims": "ft-in (벡터 글자층, 약 3pt라 렌더링으로는 거의 안 읽힘)",
+    "area": "sq ft"
+  },
+  "scale": {
+    "method": "dims (+ 전체 도면집은 bar)",
+    "evidence": [
+      "브로슈어: 방 이름 아래 W'xD' 글자(get_text('words')로 위치까지 읽는다) ↔ 벽 안쪽 면 픽셀",
+      "전체 도면집: 채운 사각형 축척 막대 10ft = 71.9pt → 0.0424 m/pt (수영장 치수와 4% 이내, 이전 세션 측정)"
+    ],
+    "notes": "브로슈어는 막대가 없다. 면적 정의는 44쪽: 외벽 바깥면과 세대 경계벽 중심선 기준."
+  },
+  "page_layout": "가로 1024x768pt 한 페이지에 한 세대. 전체 도면집은 층마다 페이지 위치가 다르다(L64 +31,+9pt, L65 +83,+62pt; 축척은 같음) → align으로 코어 기준 맞춤.",
+  "quirks": [
+    "벽 회색(0.71~0.74)이 계단·기둥·지붕(세대 밖)에도 쓰이고, 나중에 칠한 색이 덮는다(전체 도면집 L63/64/65 회색 도형의 42/59/16%가 안 보임, 브로슈어 42쪽 25%). 벡터 도형이 아니라 렌더링으로 해석한다.",
+    "대각선 워터마크(www.miamicondoinvestments.com)는 투명도 20% 검정 텍스트라 렌더링하면 회색 ~204로 벽 회색과 15밖에 차이가 안 난다: render --drop-text 'www\\.'로 지우고 렌더링한다.",
+    "북동쪽 입면이 사선·곡선 유리 커튼월: 가는 선이라 벽 마스크에 안 잡힌다 → 창 개구부로만 덮은 벽."
+  ]
+}

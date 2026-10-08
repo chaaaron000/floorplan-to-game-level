@@ -1,0 +1,12 @@
+{
+  "image": "refs/floorplans/oneandonly/ap1.png",
+  "profile": "oneandonly",
+  "items": [
+    {"kind": "area", "label": "SUITE AREA 79.62 SQ.M (= 857 SQ.FT) ↔ outline(외벽 바깥면)",
+     "polygon": [[88, 63], [1461, 63], [1461, 1409], [387, 1409], [387, 1249], [88, 1249]], "area": "79.62 m2"},
+    {"kind": "area", "label": "같은 면적표의 857 SQ.FT(반올림 확인)",
+     "polygon": [[88, 63], [1461, 63], [1461, 1409], [387, 1409], [387, 1249], [88, 1249]], "area": "857 sq ft"},
+    {"kind": "fixture", "label": "현관문 개구부 x 1052~1205 (관례 1.0m)", "p0": [1052, 1394], "p1": [1205, 1394], "length": 1.0},
+    {"kind": "fixture", "label": "킹 침대+헤드보드 x 378~725 (관례 2.2m)", "p0": [378, 420], "p1": [725, 420], "length": 2.2}
+  ]
+}

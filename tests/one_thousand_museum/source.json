@@ -1,0 +1,10 @@
+{
+  "family": "one_thousand_museum",
+  "drive_path": "14.01 건물 도면 레퍼런스/04_One_Thousand_Museum/downloads/Floor_Plans/one-thousand-museum-01-line-levels-15-to-25-floor-plan.pdf",
+  "local_source": "refs/floorplans/_sources/otm_01-line-levels-15-to-25.pdf",
+  "render": {"page": 1, "dpi": 120, "clip": [1020, 905, 2640, 1740], "drop_text": "www\\."},
+  "image": "refs/floorplans/one_thousand_museum/u1501.png",
+  "scale": "scale.json",
+  "expect": {"scale_passed": false,
+             "scale_note": "막대·치수·면적 세 종류가 다 있지만 축척 막대가 방 치수(10개, ±2.5%)·면적(-3.9%)보다 8.2% 크다. scale이 막대를 이상치로 잡는 것이 기대 동작이다(막대 그림이 평면과 따로 확대된 것으로 봄)."}
+}

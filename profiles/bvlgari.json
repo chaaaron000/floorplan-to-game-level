@@ -1,0 +1,42 @@
+{
+  "family": "bvlgari",
+  "title": "BVLGARI Lighthouse (Dubai)",
+  "sources": [
+    "BVLGARI_Lighthouse_Brochure_Floor_Plans.pdf (92p 펼침면 839x595pt, 평면 35·47·66~68쪽 등)"
+  ],
+  "format": "mixed_pdf",
+  "background_rgb": [
+    255,
+    255,
+    255
+  ],
+  "wall": {
+    "rgb": [
+      [
+        133,
+        132,
+        132
+      ]
+    ],
+    "tol": 22
+  },
+  "render_dpi": 300,
+  "units": {
+    "dims": "m ('6.2 X 4.5', 벡터 글자, 방 이름 아래)",
+    "area": "m² + ft² (면적표 Suite / Balcony / NSA)"
+  },
+  "scale": {
+    "method": "dims + area",
+    "evidence": [
+      "pdfdims: 방 치수 글자와 위치(pt) → 렌더링에서 벽 안쪽 면 사이를 잰다",
+      "면적표 Suite area ↔ 세대 다각형"
+    ],
+    "notes": "막대 없음. 그림(래스터)과 글자(벡터)가 다른 층이라 글자 위치로 방을 찾을 수 있다."
+  },
+  "page_layout": "브로슈어 펼침면: PDF 한 쪽에 브로슈어 2쪽. 층 전체 평면에 세대를 색으로 구분, 면적표는 옆 쪽.",
+  "quirks": [
+    "survey가 바닥 베이지(218,216,213)를 벽 후보 1순위로 잡는다. 실제 벽은 짙은 회색(133,132,132): 이 프로필 값을 쓴다.",
+    "테라스·발코니가 분홍으로 칠해져 있다: 벽 후보가 아니다.",
+    "평면 그림은 쪽 안 래스터 여러 장(67개)으로 나뉘어 있다: 벡터 도형 분석이 아니라 렌더링으로 본다."
+  ]
+}

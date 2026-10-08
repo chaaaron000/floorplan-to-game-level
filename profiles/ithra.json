@@ -1,0 +1,42 @@
+{
+  "family": "ithra",
+  "title": "One Za'abeel 세대 시트(Ithra Dubai)",
+  "sources": [
+    "One_Zaabeel_Residences_Floor_Plans.pdf (75p, 4040x2696pt, 래스터 그림 + 벡터 글자)",
+    "Jiwak 허브 floor_plan_img_44xx.jpeg (1080x720, 같은 시트의 래스터판)"
+  ],
+  "format": "mixed_pdf",
+  "background_rgb": [
+    255,
+    255,
+    255
+  ],
+  "wall": {
+    "rgb": [
+      [
+        100,
+        99,
+        99
+      ]
+    ],
+    "tol": 26
+  },
+  "render_dpi": 150,
+  "units": {
+    "dims": "m (W x D, 방 이름 아래)",
+    "area": "sq m + sq ft (SUITE / BALCONY / TOTAL AREA)"
+  },
+  "scale": {
+    "method": "dims + area",
+    "evidence": [
+      "pdfdims: 방 치수 W x D(m)와 위치",
+      "면적표 SUITE AREA ↔ 세대 다각형"
+    ],
+    "notes": "바닥판(one_zaabeel 프로필)의 축척 근거가 없을 때 같은 LEVEL·UNIT의 이 시트를 교차 근거로 쓴다."
+  },
+  "page_layout": "가로 쪽에 세대 평면 1개(복층은 2평면) + 키 플랜·키 섹션·면적표.",
+  "quirks": [
+    "일부 쪽(5·6쪽 등)은 글자까지 래스터라 글자층이 비어 있다: 그 쪽은 눈으로 읽어 label에 적는다.",
+    "바닥 연회색(218,218,217) 채움이 띠로 잡힌다: 명암 차로 벽 후보에서 밀리지만 tol을 넓히지 않는다."
+  ]
+}

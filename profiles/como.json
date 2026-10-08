@@ -1,0 +1,43 @@
+{
+  "family": "como",
+  "title": "COMO Residences (Dubai)",
+  "sources": [
+    "COMO_Residences_Floor_Plans.pdf (33p, 1920x1080pt, 전부 래스터)"
+  ],
+  "format": "raster_pdf",
+  "background_rgb": [
+    252,
+    250,
+    249
+  ],
+  "background_tol": 6,
+  "wall": {
+    "rgb": [
+      [
+        141,
+        138,
+        139
+      ]
+    ],
+    "tol": 20
+  },
+  "render_dpi": 97.5,
+  "units": {
+    "dims": "그림 속(OCR 필요)",
+    "area": "sq m + sq ft (그림 속, OCR 필요)"
+  },
+  "scale": {
+    "method": "area (OCR)",
+    "evidence": [
+      "면적표가 그림 속 글자: 눈으로 읽어 area 근거로 넣고 label에 '눈으로 읽음'을 적는다"
+    ],
+    "notes": "글자층이 없어 pdfdims·pdfbars가 아무것도 내지 않는다. 래스터 원본 해상도가 97.5dpi 상당이라 더 높게 렌더링해도 정보가 늘지 않는다."
+  },
+  "page_layout": "가로 쪽 왼쪽에 정보 패널(세대 유형·면적), 오른쪽에 타원형 층 평면과 강조된 세대.",
+  "quirks": [
+    "벽(141)과 바닥(252)의 명암 차가 작다: tol을 넓히면 가구·구름 무늬가 섞인다.",
+    "이 벽 색으로 잡히는 것은 코어·두꺼운 벽뿐이다. 외벽(곡면)과 세대 안 칸막이는 가는 회색 겹선이라 잉크 마스크로 직선·원 맞춤해 직접 적는다.",
+    "배경에 구름 무늬가 깔려 있다: 평면 밖은 clip으로 자른다.",
+    "청록(188,214,213) 채움은 수영장·물: 벽 후보가 아니다."
+  ]
+}

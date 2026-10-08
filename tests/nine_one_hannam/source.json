@@ -1,0 +1,10 @@
+{
+  "family": "naver_land",
+  "case": "나인원한남 75B (공급 248.84㎡ / 전용 206.89㎡, 124세대)",
+  "url": "https://landthumb-phinf.pstatic.net/20200511_1/hscp_img_1589174294531H34hX_JPEG/photoinfra_1589174294083.jpg",
+  "url_note": "네이버페이 부동산 단지 130505의 평형 정보 평면도. fin.land.naver.com은 클라우드 환경에서 연결이 끊겨, 네이버 검색 부동산 카드의 s.search.naver.com/p/landplus/1/search.naver?api_type=pc_complex_detail&complex_code=130505&complex_size_code=2&complex_size_code_members=1,2,3 응답에서 주소를 얻었다.",
+  "image": "refs/floorplans/nine_one_hannam/75B.jpg",
+  "scale": "scale.json",
+  "expect": {"scale_passed": false,
+             "scale_note": "그림 안에 치수·막대가 없어 강한 근거가 전용면적 하나뿐. 관례 치수(방문 0.9m 2개, 욕실문 0.8m)는 -4~-9%로 허용 오차 안(고급 주택이라 문이 관례보다 약간 넓음)."}
+}

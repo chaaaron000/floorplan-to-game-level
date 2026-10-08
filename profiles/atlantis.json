@@ -1,0 +1,23 @@
+{
+  "family": "atlantis",
+  "title": "Atlantis The Royal Residences (Dubai)",
+  "sources": ["10_Atlantis_The_Royal_Residences/downloads/Floor_Plans/*.jpg (약 90장, 883~1200px 폭 JPG)"],
+  "format": "raster_image",
+  "background_rgb": [255, 255, 255],
+  "floor_rgb": [186, 167, 152],
+  "wall": {"dark_sum": 260},
+  "units": {"dims": "metric(m, 방 치수표) + ft-in 병기", "area": "sq m + sq ft"},
+  "scale": {
+    "method": "dims + area",
+    "evidence": ["오른쪽 방 치수표(W x D m)를 그 방 벽 안쪽 면 사이 픽셀로", "Total Area(발코니 제외) ↔ 외벽 바깥면 다각형"],
+    "notes": "치수표에 위치가 없으므로 방 이름 글자가 있는 방에서 벽 안쪽 면을 runs로 잰다. 치수는 0.1m 반올림이라 3% 안팎 오차를 허용한다."
+  },
+  "page_layout": "가로 페이지 왼쪽에 평면(복층이면 위·아래 두 개), 오른쪽에 치수·면적표, 아래에 건물 입면 키. 평면이 건물 곡면을 따라 휘어 있다.",
+  "quirks": [
+    "바닥이 황갈색(186,167,152)으로 칠해져 있다. 흰 바탕 기준 도구(edge_points 기본값)는 쓰지 않는다.",
+    "벽은 검정이지만 JPG라 가장자리가 번진다: RGB 합 < 260으로 고른다(survey가 고른 (35,31,32) ±24보다 안정).",
+    "북쪽 창선·남쪽 외벽이 건물 곡면을 따라 동심원이다. arc 대신 원 중심을 남쪽 외벽에서 맞추고 반지름만 재면 잔차가 1px 아래.",
+    "샤워·WC 칸의 벽이 3px로 얇다. 가구 선(1~2px)과 구분은 min_wall_px 3, 침식 1px.",
+    "검게 채운 덩어리가 기둥인지 샤프트인지 기호로 구분되지 않는다: assumptions에 적는다."
+  ]
+}

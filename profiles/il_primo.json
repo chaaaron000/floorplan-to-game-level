@@ -1,0 +1,44 @@
+{
+  "family": "il_primo",
+  "title": "Il Primo (Dubai)",
+  "sources": [
+    "il-primo-downtown-dubai-brochure.pdf (34p 1920x1080pt, 평면 25~33쪽)",
+    "fpn_01·fpn_07.webp (768x432, 추적에는 해상도 부족)"
+  ],
+  "format": "mixed_pdf",
+  "background_rgb": [
+    255,
+    255,
+    255
+  ],
+  "wall": {
+    "rgb": [
+      [
+        155,
+        165,
+        174
+      ]
+    ],
+    "tol": 14
+  },
+  "render_dpi": 200,
+  "units": {
+    "dims": "m ('5.0M X 6.6M', 그림 속 글자)",
+    "area": "sq ft + sq m (면적표 SUITE / BALCONY / TOTAL AREA, 벡터 글자)"
+  },
+  "scale": {
+    "method": "area",
+    "evidence": [
+      "면적표 SUITE AREA ↔ 세대 다각형",
+      "주석: dimensions measured from finish to finish → 그림 속 치수는 마감면 사이"
+    ],
+    "notes": "막대 없음. 'scale' 단어는 'not to scale' 주석이다."
+  },
+  "page_layout": "브로슈어 가로 쪽에 세대(층 전체) 평면 1개 + 면적표.",
+  "quirks": [
+    "구조벽·코어는 청회색 채움(155,165,174)이다. survey 1순위(120,120,118)는 가구·문 외곽선이라 벽이 아니다: tol 14 이상으로 넓히면 회색 러그(161,162,162)가 섞인다.",
+    "얇은 칸막이는 채움 없이 가는 겹선 외곽(120,120,118)만 그려져 벽 마스크에 안 잡히고, 그 색을 벽 규칙에 넣으면 가구 외곽선까지 잡힌다. 이 계열은 아직 시험이 없으니 첫 추적에서 칸막이 처리 방식을 정해 이 프로필에 적는다.",
+    "가구가 채색되어 있다: dark_sum은 쓰지 않는다.",
+    "평면 그림이 래스터 여러 장으로 나뉜 쪽이 있다: 렌더링으로 본다."
+  ]
+}

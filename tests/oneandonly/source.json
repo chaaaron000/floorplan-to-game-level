@@ -1,0 +1,10 @@
+{
+  "family": "oneandonly",
+  "drive_path": "14.01 건물 도면 레퍼런스/02_OneAndOnly_Private_Homes_One_Zaabeel/downloads/Floor_Plans/OneAndOnly_Private_Homes_Floor_Plans.pdf",
+  "local_source": "refs/floorplans/_sources/OneAndOnly_Private_Homes_Floor_Plans.pdf",
+  "render": {"page": 2, "dpi": 200, "clip": [140, 260, 700, 790]},
+  "image": "refs/floorplans/oneandonly/ap1.png",
+  "scale": "scale.json",
+  "expect": {"scale_passed": false,
+             "scale_note": "강한 축척 근거가 면적표 하나뿐인 계열(막대·치수 없음). 관례 치수 2개는 허용 오차 안."}
+}
