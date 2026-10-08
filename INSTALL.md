@@ -7,7 +7,9 @@
 
 ## 0. 이 저장소가 무엇인지
 
-`floorplan-trace` 는 평면도 이미지·PDF를 에이전트가 직접 읽어 벽·문·기둥·코어·계단을 **추적 파일(Python)** 에 적고, 공용 빌더가 그 추적 파일에서 IFC, 게임용 메시(.blend), 검사 결과(`validation.json`), 평면 겹침 그림을 만드는 스킬입니다. 파일 구성은 [README.md](README.md) 를 봅니다.
+`floorplan-to-game-level` 은 건축 평면도에서 게임 엔진(Unity / Unreal)용 레벨 모델을 만드는 스킬 모음입니다. 스킬은 둘입니다: `floorplan-trace`(도면 → IFC·blend)와 `level-mesh-export-qa`(→ FBX·manifest·검수).
+
+이 저장소의 `floorplan-trace` 는 평면도 이미지·PDF를 에이전트가 직접 읽어 벽·문·기둥·코어·계단을 **추적 파일(Python)** 에 적고, 공용 빌더가 그 추적 파일에서 IFC, 게임용 메시(.blend), 검사 결과(`validation.json`), 평면 겹침 그림을 만드는 스킬입니다. 파일 구성은 [README.md](README.md) 를 봅니다.
 
 두 가지 실행 환경이 필요합니다.
 
@@ -20,15 +22,15 @@
 
 ## 1. 스킬 폴더 위치
 
-이 저장소에서 스킬은 `skills/floorplan-trace/` 폴더입니다. 이 폴더를 **사용자 프로젝트의** `.claude/skills/floorplan-trace/` 에 둡니다(복사 또는 심볼릭 링크). 이후 문서의 `<SKILL>` 은 그 폴더(`<프로젝트>/.claude/skills/floorplan-trace`)를 뜻합니다.
+이 저장소에는 스킬이 둘 있습니다: `skills/floorplan-trace/`(도면 모델링)와 `skills/level-mesh-export-qa/`(게임 엔진용 내보내기·검수). `skills/` 아래 폴더들을 **사용자 프로젝트의** `.claude/skills/` 에 둡니다(복사 또는 심볼릭 링크). 이후 문서의 `<SKILL>` 은 `<프로젝트>/.claude/skills/floorplan-trace` 를 뜻합니다(설치 확인 도구가 거기 있습니다).
 
 ```
-git clone https://github.com/chaaaron000/floorplan-trace <받을 곳>
+git clone https://github.com/chaaaron000/floorplan-to-game-level <받을 곳>
 mkdir -p <프로젝트>/.claude/skills
-cp -r <받을 곳>/skills/floorplan-trace <프로젝트>/.claude/skills/
+cp -r <받을 곳>/skills/* <프로젝트>/.claude/skills/
 ```
 
-(Windows PowerShell: `Copy-Item -Recurse <받을 곳>\skills\floorplan-trace <프로젝트>\.claude\skills\`.) 이미 `<SKILL>` 이 있다면 건너뜁니다. 확인: `<SKILL>/SKILL.md` 가 있다.
+(Windows PowerShell: `Copy-Item -Recurse <받을 곳>\skills\* <프로젝트>\.claude\skills\`.) 이미 `<SKILL>` 이 있다면 건너뜁니다. 확인: `<SKILL>/SKILL.md` 가 있다.
 
 ## 2. 시스템 Python 의존성
 
@@ -116,5 +118,6 @@ MCP 연결 확인(선택): Claude Code 에서 `/mcp` 를 열어 `Blender`(또는
 - [ ] `python <SKILL>/check_env.py` → `결과: PASS`
 - [ ] `python <SKILL>/plan_tools.py selftest` → 마지막 줄 `selftest: PASS`
 - [ ] `blender -b --python <SKILL>/check_env.py` → `결과: PASS` (bpy, numpy, PIL, shapely, ifcopenshell, bonsai 모두 OK)
+- [ ] `blender -b --factory-startup --python <QA>/checks/run_all.py --` → import 오류 없이 "--fbx, --scene, --manifest 중 하나는 있어야 한다" 메시지가 나오고 끝난다 (`<QA>` = `.claude/skills/level-mesh-export-qa`). 내보내기 스킬을 쓰지 않으면 생략
 - [ ] 사용한 Blender 경로와 버전, Bonsai 버전(`check_env.py` 출력 또는 확장 목록)을 보고
 - [ ] 설치하지 못한 것이 있으면 이름과 이유를 그대로 보고(추측으로 "됐다"고 하지 않는다)

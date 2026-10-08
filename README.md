@@ -1,14 +1,21 @@
-# floorplan-trace
+# floorplan-to-game-level
 
-평면도 이미지·PDF를 **직접 읽고 재서** 벽·문·기둥·코어·계단을 추적 파일에 적고, 공용 빌더로 IFC, 게임용 메시, 검사 결과, 평면 겹침 그림을 만드는 AI 에이전트용 스킬입니다(Claude Code 스킬 형식). 자동 윤곽 추출이 아니라 "읽어서 정한 벽 목록"을 정본으로 삼는 것이 핵심입니다.
+**건축 평면도(이미지·PDF)에서 게임 엔진용 레벨 모델을 만드는** AI 에이전트용 스킬 모음입니다(Claude Code 스킬 형식). 평면도를 에이전트가 직접 읽고 재서 건축 모델(IFC)을 만들고, 게임 엔진(Unity / Unreal)에 넣을 수 있는 메시(FBX)로 내보내 검수합니다.
 
-작동 방식과 절차는 [skills/floorplan-trace/SKILL.md](skills/floorplan-trace/SKILL.md)에 있습니다(한국어).
+| 스킬 | 하는 일 |
+|---|---|
+| [`floorplan-trace`](skills/floorplan-trace/SKILL.md) | 평면도를 **직접 읽고 재서** 벽·문·기둥·코어·계단을 추적 파일에 적고, 공용 빌더로 IFC, 게임용 메시(.blend), 검사 결과, 평면 겹침 그림을 만든다. 자동 윤곽 추출이 아니라 "읽어서 정한 벽 목록"을 정본으로 삼는 것이 핵심 |
+| [`level-mesh-export-qa`](skills/level-mesh-export-qa/SKILL.md) | 위 모델을 게임용 FBX로 합쳐 내보내고 검수한다(재질별 합치기, `COL_` 충돌, 문·방 표식, UV2, 비매니폴드·교차·z-fighting·접합 틈·천장고·단면 형상, 캡슐 도달 가능성, 문 최대 열림 각도). 대상 엔진(Unity/Unreal)은 **사용자에게 먼저 묻는다** |
+
+흐름: 평면도 → `floorplan-trace`(IFC·blend) → `level-mesh-export-qa`(FBX·manifest·검수) → 엔진 임포트.
+두 스킬 모두 한국어 문서입니다.
 
 ## 구성
 
 ```
 INSTALL.md                         에이전트용 설치 안내
-skills/floorplan-trace/            스킬 폴더 (이 폴더를 프로젝트의 .claude/skills/ 에 둔다)
+skills/floorplan-trace/            스킬 폴더 (프로젝트의 .claude/skills/ 에 둔다)
+skills/level-mesh-export-qa/       스킬 폴더 (같은 곳에 둔다)
 ```
 
 | 파일 (`skills/floorplan-trace/` 아래) | 내용 |
@@ -19,6 +26,12 @@ skills/floorplan-trace/            스킬 폴더 (이 폴더를 프로젝트의 
 | `check_env.py` | 설치 확인(시스템 Python용, Blender용 두 번 실행) |
 | `references/` | 추적 파일 틀(`trace_template.py`), 빌더 사용법, 문·창 기호 읽는 법, 도면 계열별 주의점 |
 | `profiles/`, `tests/` | 도면 계열별 프로필, 축척 근거 예시(`scale.json`, `source.json`) |
+
+| 파일 (`skills/level-mesh-export-qa/` 아래) | 내용 |
+|---|---|
+| `SKILL.md` | 엔진 중립 본문: 첫 단계에서 대상 엔진을 묻고, 합치기·충돌·표식 규칙과 검사 목록 |
+| `engines/unity.md`, `engines/unreal.md` | 엔진별 규약(축·스케일·충돌·표식)과 임포트 검수. unreal 쪽은 `manifest.json` 형식 포함 |
+| `checks/` | 엔진 중립 검사 스크립트와 `run_all.py` (백그라운드 Blender에서 실행) |
 
 ## 설치
 
@@ -31,9 +44,9 @@ skills/floorplan-trace/            스킬 폴더 (이 폴더를 프로젝트의 
 직접 하려면:
 
 ```
-git clone https://github.com/chaaaron000/floorplan-trace
+git clone https://github.com/chaaaron000/floorplan-to-game-level
 mkdir -p <프로젝트>/.claude/skills
-cp -r floorplan-trace/skills/floorplan-trace <프로젝트>/.claude/skills/      # 심볼릭 링크도 가능
+cp -r floorplan-to-game-level/skills/* <프로젝트>/.claude/skills/      # 심볼릭 링크도 가능
 python -m pip install numpy pillow pymupdf
 python <프로젝트>/.claude/skills/floorplan-trace/check_env.py
 ```
@@ -43,6 +56,7 @@ python <프로젝트>/.claude/skills/floorplan-trace/check_env.py
 | 필요한 것 | 용도 | 비고 |
 |---|---|---|
 | Python 3 + `numpy`, `Pillow` | `plan_tools.py` (측정 도구) | 필수 |
+| `shapely` 2.x, `ifcopenshell` | `level-mesh-export-qa` 검사 중 단면·접합 틈, IFC 재열기. Bonsai 확장이 Blender 파이썬에 제공 | 내보내기 검수 시 |
 | `PyMuPDF` (`pymupdf`) | PDF 도면 렌더링, 축척 막대·치수 글자 읽기 | PDF 입력 시 |
 | Blender 5.1 이상 (작성자 5.2.2 LTS) | `plan_build.py` 실행(백그라운드 `-b`) | 필수 |
 | Bonsai 확장 (0.8.5 이상, 작성자 0.9.0) | `ifcopenshell`, `shapely` 를 Blender 파이썬에 제공, IFC 원본 씬 | 필수 |
@@ -57,8 +71,9 @@ Blender·Bonsai·MCP 설치는 작성자가 쓴 [ProfRino/bonsai-bim-skills](htt
 에이전트에게 평면도 파일과 함께 이렇게 요청합니다.
 
 > `floorplan-trace` 스킬로 `<도면 파일>` 의 `<층/세대>` 를 모델링해줘.
+> 그다음 `level-mesh-export-qa` 스킬로 게임 엔진용 FBX로 내보내고 검수해줘.
 
-에이전트는 SKILL.md 의 절차를 따릅니다: 그림 준비 → 축척(근거 두 종류 이상) → 평면 읽기 → 원본 픽셀에서 재기 → 추적 파일 쓰기 → 빌드 → 겹침 그림으로 대조. 한 평면은 한 에이전트가 한 컨텍스트에서 끝까지 하는 것을 권장합니다.
+에이전트는 각 SKILL.md 의 절차를 따릅니다(내보내기 스킬은 먼저 Unity/Unreal 중 무엇을 쓰는지 묻습니다). 모델링 절차: 그림 준비 → 축척(근거 두 종류 이상) → 평면 읽기 → 원본 픽셀에서 재기 → 추적 파일 쓰기 → 빌드 → 겹침 그림으로 대조. 한 평면은 한 에이전트가 한 컨텍스트에서 끝까지 하는 것을 권장합니다.
 
 ## 알아 둘 것
 
