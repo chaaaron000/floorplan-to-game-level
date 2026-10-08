@@ -18,15 +18,17 @@
 
 작성자가 검증한 환경: Windows 11 x64, Python 3.14, Blender 5.2.2 LTS, Bonsai 0.9.0. macOS/Linux 는 Bonsai 확장이 지원하면 같은 방식으로 되겠지만 작성자가 확인하지 않았습니다.
 
-## 1. 저장소 위치
+## 1. 스킬 폴더 위치
 
-이 저장소 폴더 전체가 하나의 스킬입니다. Claude Code 라면 프로젝트의 `.claude/skills/floorplan-trace/` 에 둡니다.
+이 저장소에서 스킬은 `skills/floorplan-trace/` 폴더입니다. 이 폴더를 **사용자 프로젝트의** `.claude/skills/floorplan-trace/` 에 둡니다(복사 또는 심볼릭 링크). 이후 문서의 `<SKILL>` 은 그 폴더(`<프로젝트>/.claude/skills/floorplan-trace`)를 뜻합니다.
 
 ```
-git clone https://github.com/chaaaron000/floorplan-trace .claude/skills/floorplan-trace
+git clone https://github.com/chaaaron000/floorplan-trace <받을 곳>
+mkdir -p <프로젝트>/.claude/skills
+cp -r <받을 곳>/skills/floorplan-trace <프로젝트>/.claude/skills/
 ```
 
-이미 그 위치에 있다면 건너뜁니다. 확인: `.claude/skills/floorplan-trace/SKILL.md` 가 있다.
+(Windows PowerShell: `Copy-Item -Recurse <받을 곳>\skillsloorplan-trace <프로젝트>\.claude\skills\`.) 이미 `<SKILL>` 이 있다면 건너뜁니다. 확인: `<SKILL>/SKILL.md` 가 있다.
 
 ## 2. 시스템 Python 의존성
 
@@ -37,11 +39,11 @@ python -m pip install numpy pillow pymupdf
 (`python` 이 없으면 `python3`, 또는 Windows 의 `py -3`.) 확인:
 
 ```
-python check_env.py          # 결과: PASS 가 나와야 한다. pymupdf 는 OPTIONAL
-python plan_tools.py selftest   # 마지막 줄이 "selftest: PASS ..." 여야 한다
+python <SKILL>/check_env.py          # 결과: PASS 가 나와야 한다. pymupdf 는 OPTIONAL
+python <SKILL>/plan_tools.py selftest   # 마지막 줄이 "selftest: PASS ..." 여야 한다
 ```
 
-`selftest` 는 `plan_tools_selftest/` 폴더를 만듭니다. 확인 뒤 지워도 됩니다(.gitignore 에 있음).
+`selftest` 는 현재 폴더에 `plan_tools_selftest/` 를 만듭니다. 확인 뒤 지워도 됩니다.
 
 ## 3. Blender 와 Bonsai
 
@@ -82,7 +84,7 @@ MCP 연결 확인(선택): Claude Code 에서 `/mcp` 를 열어 `Blender`(또는
 ### 3-3. 확인
 
 ```
-"<blender 경로>" -b --python check_env.py
+"<blender 경로>" -b --python <SKILL>/check_env.py
 ```
 
 출력에 다음이 모두 `OK` 이고 마지막이 `결과: PASS` 여야 합니다: `bpy`, `numpy`, `PIL`, `shapely`, `ifcopenshell`, `ifcopenshell.api`, `bonsai`. 출력에 다른 애드온의 로그가 섞여 나올 수 있으나 무시합니다.
@@ -92,15 +94,15 @@ MCP 연결 확인(선택): Claude Code 에서 `/mcp` 를 열어 `Blender`(또는
 ## 4. 프로젝트 쪽 준비 (평면 한 장을 모델링하기 전)
 
 1. 원본 도면 그림을 둘 폴더를 정합니다(작성자는 저장소 루트의 `refs/floorplans/<건물>/`, git 제외). `plan_tools.py` 는 상대 경로를 현재 폴더 → 추적 파일 폴더 → 그 상위 폴더들 순서로 찾습니다.
-2. 새 작업 폴더에 [references/trace_template.py](references/trace_template.py) 를 복사해 층마다 추적 파일 하나와 `project.py` 하나를 만듭니다.
+2. 새 작업 폴더에 `<SKILL>/references/trace_template.py` 를 복사해 층마다 추적 파일 하나와 `project.py` 하나를 만듭니다.
 3. 빌드:
    ```
-   "<blender 경로>" -b --python .claude/skills/floorplan-trace/plan_build.py -- <작업 폴더>/project.py
+   "<blender 경로>" -b --python <SKILL>/plan_build.py -- <작업 폴더>/project.py
    ```
    옵션: `--no-render`(렌더 생략), `--no-source`(Bonsai 원본 씬 불러오기 생략), `--render-only`, `--out <폴더>`.
 4. 산출물: IFC, blend, `validation.json`(벽 틈·문·공간·비매니폴드·겹친 면·층간 일치·평면 일치도), 평면 겹침 그림(`plan_overlay`, `plan_diff`), 렌더.
 
-절차(축척 근거 모으기 → 평면 읽기 → 재기 → 적기 → 빌드 → 대조)와 규칙은 [SKILL.md](SKILL.md) 를 그대로 따릅니다. **자동 윤곽 추출 결과를 벽 목록으로 옮기지 않고, 에이전트가 직접 읽어 정한 벽을 추적 파일에 적는 것이 이 스킬의 핵심 규칙입니다.**
+절차(축척 근거 모으기 → 평면 읽기 → 재기 → 적기 → 빌드 → 대조)와 규칙은 `<SKILL>/SKILL.md` 를 그대로 따릅니다. **자동 윤곽 추출 결과를 벽 목록으로 옮기지 않고, 에이전트가 직접 읽어 정한 벽을 추적 파일에 적는 것이 이 스킬의 핵심 규칙입니다.**
 
 ## 5. 선택 사항 (없어도 됨)
 
@@ -111,8 +113,8 @@ MCP 연결 확인(선택): Claude Code 에서 `/mcp` 를 열어 `Blender`(또는
 
 아래를 모두 채우고 출력 요약을 사용자에게 보여 줍니다.
 
-- [ ] `python check_env.py` → `결과: PASS`
-- [ ] `python plan_tools.py selftest` → 마지막 줄 `selftest: PASS`
-- [ ] `blender -b --python check_env.py` → `결과: PASS` (bpy, numpy, PIL, shapely, ifcopenshell, bonsai 모두 OK)
+- [ ] `python <SKILL>/check_env.py` → `결과: PASS`
+- [ ] `python <SKILL>/plan_tools.py selftest` → 마지막 줄 `selftest: PASS`
+- [ ] `blender -b --python <SKILL>/check_env.py` → `결과: PASS` (bpy, numpy, PIL, shapely, ifcopenshell, bonsai 모두 OK)
 - [ ] 사용한 Blender 경로와 버전, Bonsai 버전(`check_env.py` 출력 또는 확장 목록)을 보고
 - [ ] 설치하지 못한 것이 있으면 이름과 이유를 그대로 보고(추측으로 "됐다"고 하지 않는다)

@@ -2,33 +2,40 @@
 
 평면도 이미지·PDF를 **직접 읽고 재서** 벽·문·기둥·코어·계단을 추적 파일에 적고, 공용 빌더로 IFC, 게임용 메시, 검사 결과, 평면 겹침 그림을 만드는 AI 에이전트용 스킬입니다(Claude Code 스킬 형식). 자동 윤곽 추출이 아니라 "읽어서 정한 벽 목록"을 정본으로 삼는 것이 핵심입니다.
 
-작동 방식과 절차는 [SKILL.md](SKILL.md)에 있습니다(한국어).
+작동 방식과 절차는 [skills/floorplan-trace/SKILL.md](skills/floorplan-trace/SKILL.md)에 있습니다(한국어).
 
 ## 구성
 
-| 파일 | 내용 |
+```
+INSTALL.md                         에이전트용 설치 안내
+skills/floorplan-trace/            스킬 폴더 (이 폴더를 프로젝트의 .claude/skills/ 에 둔다)
+```
+
+| 파일 (`skills/floorplan-trace/` 아래) | 내용 |
 |---|---|
 | `SKILL.md` | 스킬 본문: 절차(그림 준비 → 축척 → 읽기 → 재기 → 적기 → 빌드 → 대조), 규칙 |
 | `plan_tools.py` | 렌더링, 좌표 격자 타일·크롭, 벽 띠 재기, 원 맞춤, 축척 대조, 층 맞춤 (`python plan_tools.py -h`) |
 | `plan_build.py` | 추적 파일 → IFC·blend·`validation.json`·겹침 그림·렌더 |
-| `INSTALL.md`, `check_env.py` | 에이전트용 설치 안내와 설치 확인 스크립트 |
+| `check_env.py` | 설치 확인(시스템 Python용, Blender용 두 번 실행) |
 | `references/` | 추적 파일 틀(`trace_template.py`), 빌더 사용법, 문·창 기호 읽는 법, 도면 계열별 주의점 |
 | `profiles/`, `tests/` | 도면 계열별 프로필, 축척 근거 예시(`scale.json`, `source.json`) |
 
 ## 설치
 
-**에이전트에게 맡기려면:** 저장소를 `.claude/skills/floorplan-trace` 에 받은 뒤 에이전트에게 이렇게 말하면 됩니다.
+**에이전트에게 맡기려면:** 이 저장소를 받아 둔 뒤 에이전트에게 이렇게 말하면 됩니다.
 
-> `.claude/skills/floorplan-trace/INSTALL.md` 를 읽고 그대로 설치하고 확인까지 끝내줘.
+> `<받은 폴더>/INSTALL.md` 를 읽고 그대로 설치하고 확인까지 끝내줘.
 
 [INSTALL.md](INSTALL.md) 는 에이전트가 순서대로 따라 하며 스스로 확인하도록 쓴 안내입니다(Blender 설치처럼 시스템에 영향을 주는 단계는 사용자 승인을 먼저 받게 되어 있습니다).
 
 직접 하려면:
 
 ```
-git clone https://github.com/chaaaron000/floorplan-trace .claude/skills/floorplan-trace
+git clone https://github.com/chaaaron000/floorplan-trace
+mkdir -p <프로젝트>/.claude/skills
+cp -r floorplan-trace/skills/floorplan-trace <프로젝트>/.claude/skills/      # 심볼릭 링크도 가능
 python -m pip install numpy pillow pymupdf
-python .claude/skills/floorplan-trace/check_env.py
+python <프로젝트>/.claude/skills/floorplan-trace/check_env.py
 ```
 
 ## 의존성
