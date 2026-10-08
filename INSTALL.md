@@ -14,7 +14,7 @@
 | 환경 | 쓰는 파일 | 필요한 것 |
 |---|---|---|
 | 시스템 Python | `plan_tools.py` (렌더링, 좌표 격자, 벽 띠 재기, 축척 대조 등 측정 도구) | Python 3, numpy, Pillow, (PDF 입력 시) PyMuPDF |
-| 백그라운드 Blender | `plan_build.py` (추적 파일 → IFC·blend·검사·그림) | Blender 5.1 이상(작성자는 5.2.2 LTS), Bonsai 확장(ifcopenshell, shapely 동봉), numpy, Pillow(Blender 파이썬에 포함·동봉) |
+| 백그라운드 Blender | `plan_build.py` (추적 파일 → IFC·blend·검사·그림) | Blender 5.1 이상(작성자는 5.2.2 LTS), Bonsai 확장(ifcopenshell, shapely 동봉 — 설치는 [ProfRino/bonsai-bim-skills](https://github.com/ProfRino/bonsai-bim-skills) 안내를 따른다), numpy, Pillow(Blender 파이썬에 포함·동봉) |
 
 작성자가 검증한 환경: Windows 11 x64, Python 3.14, Blender 5.2.2 LTS, Bonsai 0.9.0. macOS/Linux 는 Bonsai 확장이 지원하면 같은 방식으로 되겠지만 작성자가 확인하지 않았습니다.
 
@@ -59,26 +59,25 @@ Blender 5.1 이상이 있어야 합니다. 경로를 찾습니다.
 
 없거나 5.1 미만이면 사용자에게 "Blender 5.2 LTS 를 설치해도 될까요"라고 먼저 알립니다(https://www.blender.org/download/). 승인 전에는 설치하지 않습니다.
 
-### 3-2. Bonsai 확장 설치
+### 3-2. Bonsai 와 MCP 설치 — ProfRino/bonsai-bim-skills 의 안내를 따른다
 
-Bonsai(IFC 저작 확장, https://bonsaibim.org/)는 Blender 확장 저장소에서 설치합니다. 이 확장이 `ifcopenshell`, `shapely` 등을 같이 가져옵니다.
+작성자는 Bonsai 환경을 **https://github.com/ProfRino/bonsai-bim-skills** 의 안내대로 설치했습니다. 이 스킬의 환경도 그 저장소가 요구하는 것과 같게 맞추면 됩니다. 에이전트는 그 저장소의 `INSTALL.md` 를 읽고(`gh api repos/ProfRino/bonsai-bim-skills/contents/INSTALL.md --jq .content | base64 -d`, 또는 브라우저로) 아래 항목을 그대로 설치합니다.
 
-먼저 이미 설치돼 있는지 확인합니다.
+| 항목 | 버전 | 이 스킬에서의 역할 | 그 저장소 INSTALL.md 의 절 |
+|---|---|---|---|
+| Blender | 5.1 이상 (작성자 5.2.2 LTS) | 호스트 | §2 |
+| Bonsai 확장 | 0.8.5 이상 (작성자 0.9.0) | `ifcopenshell`, `shapely` 등을 Blender 파이썬에 제공. **빌더에 필수** | §2 (Edit → Preferences → Get Extensions → "Bonsai" → Install, 이후 Blender 재시작) |
+| BlenderMCP ([ahujasid/blender-mcp](https://github.com/ahujasid/blender-mcp)) | 최신 | 에이전트가 열린 Blender 에 파이썬을 보내고 화면을 볼 때(결과 눈으로 확인). 백그라운드 빌드에는 불필요 | §3 |
+| ifc-bonsai-mcp ([Show2Instruct/ifc-bonsai-mcp](https://github.com/Show2Instruct/ifc-bonsai-mcp), MCP 서버 이름은 `bonsai-ifc`) | 최신 | 높은 수준의 IFC 도구, 즉흥 조회·수정용. 권장 | §4 |
+| Claude Code 의 MCP 설정 | — | 위 두 MCP 를 에이전트에 연결 | §5 |
 
-```
-"<blender 경로>" -b --python check_env.py
-```
+정리하면 **`plan_build.py` 를 돌리는 데 꼭 필요한 것은 Blender + Bonsai** 이고, MCP 두 개는 에이전트가 Blender 를 직접 열어 보며 작업·확인할 때 쓰는 보조 도구입니다. 사용자가 "그 저장소대로"라고 했으면 MCP 까지 설치합니다.
 
-`bonsai`, `ifcopenshell`, `shapely` 가 모두 OK 면 3-3 으로 갑니다. 아니면 명령줄로 설치합니다(인터넷 필요).
+그 저장소의 §6~7(그 저장소의 `bonsai-*` 스킬 7개를 `~/.claude/skills/` 에 연결)은 **이 스킬과 별개의 선택 사항**입니다. 이 스킬의 빌더는 그 스킬들에 의존하지 않습니다. 같은 Bonsai 위에서 벽·문·계단 등을 손으로 더 만들고 싶을 때만 설치합니다.
 
-```
-"<blender 경로>" -b --command extension repo-sync
-"<blender 경로>" -b --command extension install --enable bonsai
-```
+이미 설치돼 있는지는 3-3 의 확인으로 먼저 봅니다. 확장 설치가 막히면(오프라인 등) Blender 를 열어 Get Extensions 화면에서 설치하도록 사용자에게 안내합니다. Blender 는 시스템 설치이므로 없으면 사용자 승인을 먼저 받습니다(3-1).
 
-위가 실패하면(오프라인, 저장소 설정 없음 등) Blender 를 GUI 로 열어 `Edit > Preferences > Get Extensions` 에서 `Bonsai` 를 설치·활성화하도록 사용자에게 안내합니다. 활성화 상태는 사용자 설정에 저장되어 `-b` 실행에도 적용됩니다.
-
-Bonsai 의 휠은 Python 3.13 용입니다. Blender 5.x 가 번들하는 Python 과 맞는지는 위 확인으로 가립니다.
+MCP 연결 확인(선택): Claude Code 에서 `/mcp` 를 열어 `Blender`(또는 `blender`)와 `bonsai-ifc` 가 Connected 인지 봅니다. 두 서버는 Blender 가 켜져 있고 각 애드온의 서버가 시작된 상태여야 연결됩니다.
 
 ### 3-3. 확인
 

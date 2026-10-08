@@ -38,8 +38,10 @@ python .claude/skills/floorplan-trace/check_env.py
 | Python 3 + `numpy`, `Pillow` | `plan_tools.py` (측정 도구) | 필수 |
 | `PyMuPDF` (`pymupdf`) | PDF 도면 렌더링, 축척 막대·치수 글자 읽기 | PDF 입력 시 |
 | Blender 5.1 이상 (작성자 5.2.2 LTS) | `plan_build.py` 실행(백그라운드 `-b`) | 필수 |
-| Bonsai 확장 (0.9.0 확인) | `ifcopenshell`, `shapely` 를 Blender 파이썬에 제공, IFC 원본 씬 | 필수 (Blender 확장 저장소에서 설치) |
-| Blender MCP / Bonsai MCP | 눈으로 확인할 때만 | 선택 |
+| Bonsai 확장 (0.8.5 이상, 작성자 0.9.0) | `ifcopenshell`, `shapely` 를 Blender 파이썬에 제공, IFC 원본 씬 | 필수 |
+| BlenderMCP, ifc-bonsai-mcp | 에이전트가 열린 Blender 를 보며 작업·확인 | 권장(빌드 자체에는 불필요) |
+
+Blender·Bonsai·MCP 설치는 작성자가 쓴 [ProfRino/bonsai-bim-skills](https://github.com/ProfRino/bonsai-bim-skills) 의 INSTALL.md 를 따릅니다(자세한 대응은 이 저장소의 [INSTALL.md](INSTALL.md) §3-2).
 
 작성자가 확인한 환경은 Windows 11 x64 + Python 3.14 + Blender 5.2.2 LTS + Bonsai 0.9.0 입니다. 다른 OS 는 확인하지 못했습니다. 설치 확인은 `python check_env.py`(시스템 Python)와 `blender -b --python check_env.py`(Blender) 두 번입니다.
 
