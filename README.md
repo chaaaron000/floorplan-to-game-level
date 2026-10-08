@@ -11,25 +11,45 @@
 | `SKILL.md` | 스킬 본문: 절차(그림 준비 → 축척 → 읽기 → 재기 → 적기 → 빌드 → 대조), 규칙 |
 | `plan_tools.py` | 렌더링, 좌표 격자 타일·크롭, 벽 띠 재기, 원 맞춤, 축척 대조, 층 맞춤 (`python plan_tools.py -h`) |
 | `plan_build.py` | 추적 파일 → IFC·blend·`validation.json`·겹침 그림·렌더 |
+| `INSTALL.md`, `check_env.py` | 에이전트용 설치 안내와 설치 확인 스크립트 |
 | `references/` | 추적 파일 틀(`trace_template.py`), 빌더 사용법, 문·창 기호 읽는 법, 도면 계열별 주의점 |
 | `profiles/`, `tests/` | 도면 계열별 프로필, 축척 근거 예시(`scale.json`, `source.json`) |
 
 ## 설치
 
-Claude Code 프로젝트의 스킬 폴더에 이 저장소를 둡니다.
+**에이전트에게 맡기려면:** 저장소를 `.claude/skills/floorplan-trace` 에 받은 뒤 에이전트에게 이렇게 말하면 됩니다.
+
+> `.claude/skills/floorplan-trace/INSTALL.md` 를 읽고 그대로 설치하고 확인까지 끝내줘.
+
+[INSTALL.md](INSTALL.md) 는 에이전트가 순서대로 따라 하며 스스로 확인하도록 쓴 안내입니다(Blender 설치처럼 시스템에 영향을 주는 단계는 사용자 승인을 먼저 받게 되어 있습니다).
+
+직접 하려면:
 
 ```
 git clone https://github.com/chaaaron000/floorplan-trace .claude/skills/floorplan-trace
+python -m pip install numpy pillow pymupdf
+python .claude/skills/floorplan-trace/check_env.py
 ```
 
-## 요구 사항
+## 의존성
 
-- Python 3, `numpy`, `Pillow`. PDF를 다루려면 `PyMuPDF`.
-- 빌더(`plan_build.py`)는 Blender 5.2의 백그라운드 모드에서 Bonsai(IFC) 확장의 `ifcopenshell`·`shapely`를 씁니다.
-  ```
-  blender -b --python plan_build.py -- <project.py>
-  ```
-- `python plan_tools.py selftest` 로 도구의 자체 시험을 돌릴 수 있습니다.
+| 필요한 것 | 용도 | 비고 |
+|---|---|---|
+| Python 3 + `numpy`, `Pillow` | `plan_tools.py` (측정 도구) | 필수 |
+| `PyMuPDF` (`pymupdf`) | PDF 도면 렌더링, 축척 막대·치수 글자 읽기 | PDF 입력 시 |
+| Blender 5.1 이상 (작성자 5.2.2 LTS) | `plan_build.py` 실행(백그라운드 `-b`) | 필수 |
+| Bonsai 확장 (0.9.0 확인) | `ifcopenshell`, `shapely` 를 Blender 파이썬에 제공, IFC 원본 씬 | 필수 (Blender 확장 저장소에서 설치) |
+| Blender MCP / Bonsai MCP | 눈으로 확인할 때만 | 선택 |
+
+작성자가 확인한 환경은 Windows 11 x64 + Python 3.14 + Blender 5.2.2 LTS + Bonsai 0.9.0 입니다. 다른 OS 는 확인하지 못했습니다. 설치 확인은 `python check_env.py`(시스템 Python)와 `blender -b --python check_env.py`(Blender) 두 번입니다.
+
+## 이 스킬로 모델링을 시키려면
+
+에이전트에게 평면도 파일과 함께 이렇게 요청합니다.
+
+> `floorplan-trace` 스킬로 `<도면 파일>` 의 `<층/세대>` 를 모델링해줘.
+
+에이전트는 SKILL.md 의 절차를 따릅니다: 그림 준비 → 축척(근거 두 종류 이상) → 평면 읽기 → 원본 픽셀에서 재기 → 추적 파일 쓰기 → 빌드 → 겹침 그림으로 대조. 한 평면은 한 에이전트가 한 컨텍스트에서 끝까지 하는 것을 권장합니다.
 
 ## 알아 둘 것
 
